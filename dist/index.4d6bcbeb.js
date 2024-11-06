@@ -742,16 +742,19 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsu = require("../core/jsu");
 var _headline = require("../component/Headline");
 var _headlineDefault = parcelHelpers.interopDefault(_headline);
+var _search = require("../component/Search");
+var _searchDefault = parcelHelpers.interopDefault(_search);
 class Home extends (0, _jsu.Component) {
     render() {
         const headline = new (0, _headlineDefault.default)().el;
+        const search = new (0, _searchDefault.default)().el;
         this.el.classList.add("container");
-        this.el.append(headline);
+        this.el.append(headline, search);
     }
 }
 exports.default = Home;
 
-},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../component/Headline":"fcgyO"}],"fcgyO":[function(require,module,exports) {
+},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../component/Headline":"fcgyO","../component/Search":"4zRFv"}],"fcgyO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsu = require("../core/jsu");
@@ -771,6 +774,32 @@ class Headline extends (0, _jsu.Component) {
     }
 }
 exports.default = Headline;
+
+},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4zRFv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsu = require("../core/jsu");
+class Search extends (0, _jsu.Component) {
+    render() {
+        this.el.classList.add("search");
+        this.el.innerHTML = /* html */ `
+            <input placeholder="\u{C601}\u{D654} \u{C81C}\u{BAA9}\u{C744} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694}!"/>
+            <button class="btn btn-primary">
+                CLICK
+            </button>
+        `;
+        const inputEl = this.el.querySelector("input");
+        inputEl.addEventListener("input", ()=>{
+        // 
+        });
+        inputEl.addEventListener("keydown", (event)=>{
+            event.key;
+        });
+        const btnEl = this.el.querySelector(".btn");
+        btnEl.addEventListener("click", ()=>{});
+    }
+}
+exports.default = Search;
 
 },{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["anvqh","gLLPy"], "gLLPy", "parcelRequire0369")
 

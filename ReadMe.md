@@ -7,3 +7,7 @@
 -  json에서 script에 dev 개발용 build 배포용 설정해주기 <br/>
 - `reset.css cdn`로 css 리셋하기 <br/>
 - `google fonts`로 폰트 설정 <br/>
+
+## 입력창 
+- 입력값 받기, 엔터키 적용, 클릭 적용 
+
