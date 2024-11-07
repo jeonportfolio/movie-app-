@@ -75,7 +75,7 @@ export class Component {
         })
       }
     }
-    // 상태 변경 구독!
+    // 상태 변경 구독
     subscribe(key, cb) {
       Array.isArray(this.observers[key]) // 이미 등록된 콜백이 있는지 확인!
         ? this.observers[key].push(cb) // 있으면 새로운 콜백 밀어넣기!

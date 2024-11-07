@@ -22,4 +22,10 @@
 - OMDb api 사용 `https://www.omdbapi.com/`<br/>
 - 비동기 fetch 함수로 연동 -> json형식으로 파싱<br/>
 - search 부분 s = 영화의 제목을 검색 & page = 페이지값 반환 한번에 10개의 영화정보를 보여줌 <br/>
+- store를 통해서 페이지 병합 & 검색시 데이터 갱신 <br/>
+
+## 영화 리스트 추출 <br/>
+---
+- 사용자가 검색 후 해당 정보를 전달하여 전달<br/>
+- subscribe 구독 함수를 통해서 갱신 될때 render함수 실행<br/>
 
