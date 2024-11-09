@@ -746,18 +746,21 @@ var _search = require("../component/Search");
 var _searchDefault = parcelHelpers.interopDefault(_search);
 var _movieList = require("../component/MovieList");
 var _movieListDefault = parcelHelpers.interopDefault(_movieList);
+var _movieListMore = require("../component/MovieListMore");
+var _movieListMoreDefault = parcelHelpers.interopDefault(_movieListMore);
 class Home extends (0, _jsu.Component) {
     render() {
         const headline = new (0, _headlineDefault.default)().el;
         const search = new (0, _searchDefault.default)().el;
         const movieList = new (0, _movieListDefault.default)().el;
+        const movieListMore = new (0, _movieListMoreDefault.default)().el;
         this.el.classList.add("container");
-        this.el.append(headline, search, movieList);
+        this.el.append(headline, search, movieList, movieListMore);
     }
 }
 exports.default = Home;
 
-},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../component/Headline":"fcgyO","../component/Search":"4zRFv","../component/MovieList":"j8Wff"}],"fcgyO":[function(require,module,exports) {
+},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../component/Headline":"fcgyO","../component/Search":"4zRFv","../component/MovieList":"j8Wff","../component/MovieListMore":"lWmVr"}],"fcgyO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsu = require("../core/jsu");
@@ -788,7 +791,7 @@ class Search extends (0, _jsu.Component) {
     render() {
         this.el.classList.add("search");
         this.el.innerHTML = /* html */ `
-            <input placeholder="\u{C601}\u{D654} \u{C81C}\u{BAA9}\u{C744} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694}! (\u{C601}\u{C5B4}\u{B85C} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694} \u{C608}\u{C2DC})frozen)"/>
+            <input placeholder="\u{C601}\u{D654} \u{C81C}\u{BAA9}\u{C744} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694}! (\u{C601}\u{C5B4}\u{B85C} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694} \u{C608}\u{C2DC}\u{25B6}frozen)"/>
             <button class="btn btn-primary">
                 CLICK
             </button>
@@ -816,20 +819,23 @@ var _jsu = require("../core/jsu");
 const store = new (0, _jsu.Store)({
     searchText: "",
     page: 1,
-    movies: []
+    pageMax: 1,
+    movies: [],
+    loading: false
 });
 exports.default = store;
 const searchMovies = async (page)=>{
-    if (page === 1) {
-        store.state.page = 1;
-        store.state.movies = [];
-    }
+    store.state.page = page;
+    store.state.loading = true;
+    if (page === 1) store.state.movies = [];
     const res = await fetch(`https://omdbapi.com?apikey=33e636d0&s=${store.state.searchText}&page=${page}`);
-    const { Search } = await res.json();
+    const { Search, totalResults } = await res.json();
     store.state.movies = [
         ...store.state.movies,
         ...Search
     ];
+    store.state.pageMax = Math.ceil(Number(totalResults) / 10);
+    store.state.loading = false;
 };
 
 },{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j8Wff":[function(require,module,exports) {
@@ -846,16 +852,22 @@ class MovieList extends (0, _jsu.Component) {
         (0, _movieDefault.default).subscribe("movies", ()=>{
             this.render();
         });
+        (0, _movieDefault.default).subscribe("loading", ()=>{
+            this.render();
+        });
     }
     render() {
         this.el.classList.add("movie-list");
         this.el.innerHTML = /* html */ `
             <div class="movies"></div>
+            <div class="the-loader hide"></div>
         `;
         const moviesEl = this.el.querySelector(".movies");
         moviesEl.append(...(0, _movieDefault.default).state.movies.map((movie)=>new (0, _movieItemDefault.default)({
                 movie
             }).el));
+        const loaderEl = this.el.querySelector(".the-loader");
+        (0, _movieDefault.default).state.loading ? loaderEl.classList.remove("hide") : loaderEl.classList.add("hide");
     }
 }
 exports.default = MovieList;
@@ -891,6 +903,32 @@ class MovieItem extends (0, _jsu.Component) {
 }
 exports.default = MovieItem;
 
-},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["anvqh","gLLPy"], "gLLPy", "parcelRequire0369")
+},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lWmVr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsu = require("../core/jsu");
+var _movie = require("../store/movie");
+var _movieDefault = parcelHelpers.interopDefault(_movie);
+class MovieListMore extends (0, _jsu.Component) {
+    constructor(){
+        super({
+            tagName: "button"
+        });
+        (0, _movieDefault.default).subscribe("pageMax", ()=>{
+            const { page, pageMax } = (0, _movieDefault.default).state;
+            pageMax > page ? this.el.classList.remove("hide") : this.el.classList.add("hide");
+        });
+    }
+    render() {
+        this.el.classList.add("btn", "view-more", "hide");
+        this.el.textContent = "\uB354\uBCF4\uAE30";
+        this.el.addEventListener("click", async ()=>{
+            await (0, _movie.searchMovies)((0, _movieDefault.default).state.page + 1);
+        });
+    }
+}
+exports.default = MovieListMore;
+
+},{"../core/jsu":"9dj6o","../store/movie":"kq1bo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["anvqh","gLLPy"], "gLLPy", "parcelRequire0369")
 
 //# sourceMappingURL=index.4d6bcbeb.js.map

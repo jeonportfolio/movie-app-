@@ -30,3 +30,17 @@
 - subscribe 구독 함수를 통해서 갱신 될때 render함수 실행<br/>
 - MovieItem.js 에서 이미지 아이디 년도 속성 받아오기 <br/>
 
+## 영화리스트 더보기 <br/>
+---
+- 한페이지엔 10개의 영화정보 추출 더보기 클릭시 다음 영화정보 확인 가능<br/>
+- 영화의 page와 totalResult(전체정보)로 제어 및 확인 <br/>
+- totalResult로 Math.ceil올림 -> 페이지 수 추출 <br/>
+- subscribe로 페이지 변화 감시 <br/>
+- page와 pageMax 비교를 통해 숨김처리 <br/>
+
+## 로딩 애니메이션 추가 <br/>
+---
+- keframe과 animation 사용 <br/>
+- searchMovies가 실행될고 모든 작업을 마치면 false처리 <br/>
+- loading 역시 movieList.js에서 구독함수를 통해 변화 감지 <br/>
+
