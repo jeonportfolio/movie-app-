@@ -771,7 +771,7 @@ class Headline extends (0, _jsu.Component) {
                 \u{AC80}\u{C0C9} \u{C0AC}\u{C774}\u{D2B8}  
             </h1>
             <p>
-                api \u{C5F0}\u{B3D9}\u{C744} \u{D1B5}\u{D574} \u{C601}\u{D654} \u{C815}\u{BCF4}\u{B97C} \u{C190}\u{C27D}\u{AC8C} \u{AC80}\u{C0C9}\u{D558}\u{AE30} !
+                api \u{C5F0}\u{B3D9}\u{C744} \u{D1B5}\u{D574} \u{C601}\u{D654} \u{C815}\u{BCF4}\u{B97C} \u{C190}\u{C27D}\u{AC8C} \u{AC80}\u{C0C9}\u{D558}\u{AE30} ! \u{C601}\u{C5B4}\u{B85C} \u{C785}\u{B825}\u{D574}\u{C57C} \u{C601}\u{D654} \u{C815}\u{BCF4}\u{AC00} \u{B098}\u{C635}\u{B2C8}\u{B2E4}
             </p>
         `;
     }
@@ -788,7 +788,7 @@ class Search extends (0, _jsu.Component) {
     render() {
         this.el.classList.add("search");
         this.el.innerHTML = /* html */ `
-            <input placeholder="\u{C601}\u{D654} \u{C81C}\u{BAA9}\u{C744} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694}!"/>
+            <input placeholder="\u{C601}\u{D654} \u{C81C}\u{BAA9}\u{C744} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694}! (\u{C601}\u{C5B4}\u{B85C} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694} \u{C608}\u{C2DC})frozen)"/>
             <button class="btn btn-primary">
                 CLICK
             </button>
@@ -838,6 +838,8 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsu = require("../core/jsu");
 var _movie = require("../store/movie");
 var _movieDefault = parcelHelpers.interopDefault(_movie);
+var _movieItem = require("./MovieItem");
+var _movieItemDefault = parcelHelpers.interopDefault(_movieItem);
 class MovieList extends (0, _jsu.Component) {
     constructor(){
         super();
@@ -851,13 +853,44 @@ class MovieList extends (0, _jsu.Component) {
             <div class="movies"></div>
         `;
         const moviesEl = this.el.querySelector(".movies");
-        moviesEl.append((0, _movieDefault.default).state.movies.map((movie)=>{
-            return movie.Title;
-        }));
+        moviesEl.append(...(0, _movieDefault.default).state.movies.map((movie)=>new (0, _movieItemDefault.default)({
+                movie
+            }).el));
     }
 }
 exports.default = MovieList;
 
-},{"../core/jsu":"9dj6o","../store/movie":"kq1bo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["anvqh","gLLPy"], "gLLPy", "parcelRequire0369")
+},{"../core/jsu":"9dj6o","../store/movie":"kq1bo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./MovieItem":"b2sMW"}],"b2sMW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsu = require("../core/jsu");
+class MovieItem extends (0, _jsu.Component) {
+    constructor(props){
+        super({
+            props,
+            tagName: "a"
+        });
+    }
+    render() {
+        const { movie } = this.props;
+        this.el.setAttribute("href", `#/movie?id=${movie.imdbID}`);
+        this.el.classList.add("movie");
+        this.el.style.backgroundImage = `url(${movie.Poster})`;
+        this.el.innerHTML = /* html */ `
+            <div class="info">
+                    <div class="year">
+                        ${movie.Year}
+                    </div>
+                    <div class="title">
+                        ${movie.Title}
+                    </div>
+                     
+            </div>
+        `;
+    }
+}
+exports.default = MovieItem;
+
+},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["anvqh","gLLPy"], "gLLPy", "parcelRequire0369")
 
 //# sourceMappingURL=index.4d6bcbeb.js.map

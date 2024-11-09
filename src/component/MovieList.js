@@ -1,5 +1,6 @@
 import { Component } from "../core/jsu";
-import movieStore from "../store/movie"
+import movieStore from "../store/movie";
+import MovieItem from "./MovieItem"
 
 export default class MovieList extends Component {
     constructor() {
@@ -7,9 +8,7 @@ export default class MovieList extends Component {
         movieStore.subscribe('movies', () => {
             this.render()
         })
-
     }
-
 
     render(){
         this.el.classList.add('movie-list')
@@ -19,9 +18,10 @@ export default class MovieList extends Component {
 
         const moviesEl = this.el.querySelector('.movies')
         moviesEl.append(
-                movieStore.state.movies.map(movie => {
-                    return movie.Title
-                }) 
+                ...movieStore.state.movies.map(movie => new MovieItem({
+                    movie
+                }).el)
+                  
         )
     }
 }
