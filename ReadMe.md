@@ -44,3 +44,11 @@
 - searchMovies가 실행될고 모든 작업을 마치면 false처리 <br/>
 - loading 역시 movieList.js에서 구독함수를 통해 변화 감지 <br/>
 
+## 에외 처리 현상태 메세지 출력 <br/>
+---
+- Response값이 true이면 api에서 정보 출력 제대로 되고있음  <br/>
+- movies 값이 있을 경우에만 append처리 optional chaining <br/>
+- 결과값이 많거나 결과값이 없는 등 여러 오류메세지 출력 <br/>
+- 에러메세지 도출시 더보기 버튼 사라짐<br/>
+- javascript에서 오류가 생겨도 try catch문을 통해 계속적으로 작동 가능<br/>
+
