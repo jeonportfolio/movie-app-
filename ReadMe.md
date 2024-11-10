@@ -52,3 +52,10 @@
 - 에러메세지 도출시 더보기 버튼 사라짐<br/>
 - javascript에서 오류가 생겨도 try catch문을 통해 계속적으로 작동 가능<br/>
 
+## 영화의 상세페이지 이동 <br/>
+---
+- async fetch로 해당 영화의 아이디를 가져옴 parameter = i(고유아이디)<br/>
+- 줄거리 short와 long으로 길이 제어 가능 long으로 상세정보 표기 parameter=plot=full <br/>
+- 포스터 제목 배우 감독 평점 장르 등 여러 정보를 보여준다  <br/>
+- 평점은 -> 배열데이터로 구성  parameter = source와  value값으로 구별  <br/>
+

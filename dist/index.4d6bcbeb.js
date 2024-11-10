@@ -729,14 +729,20 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsu = require("../core/jsu");
 var _home = require("./Home");
 var _homeDefault = parcelHelpers.interopDefault(_home);
+var _movie = require("./Movie");
+var _movieDefault = parcelHelpers.interopDefault(_movie);
 exports.default = (0, _jsu.createRouter)([
     {
         path: "#/",
         component: (0, _homeDefault.default)
+    },
+    {
+        path: "#/movie",
+        component: (0, _movieDefault.default)
     }
 ]);
 
-},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Home":"0JSNG"}],"0JSNG":[function(require,module,exports) {
+},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Home":"0JSNG","./Movie":"1LTyN"}],"0JSNG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsu = require("../core/jsu");
@@ -815,12 +821,14 @@ exports.default = Search;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "searchMovies", ()=>searchMovies);
+parcelHelpers.export(exports, "getMovieDetails", ()=>getMovieDetails);
 var _jsu = require("../core/jsu");
 const store = new (0, _jsu.Store)({
     searchText: "",
     page: 1,
     pageMax: 1,
     movies: [],
+    movie: {},
     loading: false,
     message: "\uC601\uD654\uC758 \uC81C\uBAA9\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694!"
 });
@@ -849,6 +857,14 @@ const searchMovies = async (page)=>{
         console.log("searchMovies error", error);
     } finally{
         store.state.loading = false;
+    }
+};
+const getMovieDetails = async (id)=>{
+    try {
+        const res = await fetch(`http://omdbapi.com?apikey=33e636d0&i=${id}&plot=full`);
+        store.state.movie = await res.json();
+    } catch (error) {
+        console.log("getMovieDetails error:", error);
     }
 };
 
@@ -946,6 +962,65 @@ class MovieListMore extends (0, _jsu.Component) {
     }
 }
 exports.default = MovieListMore;
+
+},{"../core/jsu":"9dj6o","../store/movie":"kq1bo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1LTyN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsu = require("../core/jsu");
+var _movie = require("../store/movie");
+var _movieDefault = parcelHelpers.interopDefault(_movie);
+class Movie extends (0, _jsu.Component) {
+    async render() {
+        await (0, _movie.getMovieDetails)(history.state.id);
+        console.log((0, _movieDefault.default).state.movie);
+        const { movie } = (0, _movieDefault.default).state;
+        this.el.classList.add("container", "the-movie");
+        this.el.innerHTML = /* html */ `
+            <div 
+                style="background-image: url(${movie.Poster})" 
+                class="poster"
+            ></div>
+            <div class="specs">
+                <div class="title">
+                    ${movie.Title}
+                </div>
+                <div class="labels">
+                    <span>${movie.Released}</span>
+                    &nbsp;/&nbsp;
+                    <span>${movie.Runtime}</span>
+                    &nbsp;/&nbsp;
+                    <span>${movie.Country}</span>
+                </div>
+                <div class="plot">
+                    ${movie.Plot}
+                </div>
+                <div>
+                    <h3>\u{D3C9}\u{C810}</h3>
+                    ${movie.Ratings.map((rating)=>{
+            return `<p>${rating.Source} - ${rating.Value}</p>`;
+        }).join("")}
+                </div>
+                <div>
+                    <h3>\u{BC30}\u{C6B0}</h3>
+                    <p>${movie.Actors}</P>
+                </div>
+                <div>
+                    <h3>\u{AC10}\u{B3C5}</h3>
+                    <p>${movie.Director}</P>
+                </div>
+                <div>
+                    <h3>\u{D504}\u{B85C}\u{B355}\u{C158}</h3>
+                    <p>${movie.Production}</P>
+                </div>
+                <div>
+                    <h3>\u{C7A5}\u{B974}</h3>
+                    <p>${movie.Genre}</P>
+                </div>
+            </div> 
+        `;
+    }
+}
+exports.default = Movie;
 
 },{"../core/jsu":"9dj6o","../store/movie":"kq1bo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["anvqh","gLLPy"], "gLLPy", "parcelRequire0369")
 
