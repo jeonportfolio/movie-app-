@@ -797,7 +797,7 @@ class Search extends (0, _jsu.Component) {
     render() {
         this.el.classList.add("search");
         this.el.innerHTML = /* html */ `
-            <input placeholder="\u{C601}\u{D654} \u{C81C}\u{BAA9}\u{C744} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694}! (\u{C601}\u{C5B4}\u{B85C} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694} \u{C608}\u{C2DC}\u{25B6}frozen)"/>
+            <input value="${(0, _movieDefault.default).state.searchText}" placeholder="\u{C601}\u{D654} \u{C81C}\u{BAA9}\u{C744} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694}! (\u{C601}\u{C5B4}\u{B85C} \u{C785}\u{B825}\u{D574}\u{C8FC}\u{C138}\u{C694} \u{C608}\u{C2DC}\u{25B6}frozen)"/>
             <button class="btn btn-primary">
                 CLICK
             </button>
@@ -971,13 +971,22 @@ var _movie = require("../store/movie");
 var _movieDefault = parcelHelpers.interopDefault(_movie);
 class Movie extends (0, _jsu.Component) {
     async render() {
+        this.el.classList.add("container", "the-movie");
+        this.el.innerHTML = /* html */ `
+            <div class="poster skeleton"></div>
+            <div class="specs">
+                <div class="title skeleton"></div>
+                <div class="labels skeleton"></div>
+                <div class="plot skeleton"></div>
+            </div>
+        `;
         await (0, _movie.getMovieDetails)(history.state.id);
         console.log((0, _movieDefault.default).state.movie);
         const { movie } = (0, _movieDefault.default).state;
-        this.el.classList.add("container", "the-movie");
+        const bigPoster = movie.Poster.replace("SX300", "SX700");
         this.el.innerHTML = /* html */ `
             <div 
-                style="background-image: url(${movie.Poster})" 
+                style="background-image: url(${bigPoster})" 
                 class="poster"
             ></div>
             <div class="specs">

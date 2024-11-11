@@ -74,6 +74,37 @@ body {
     100% { transform: rotate(100deg);}
 }
 
+/* 로딩 대기창  */
+
+.skeleton {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: black;
+    background-color: var(--color-area);
+}
+
+.skeleton::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(270deg,
+        rgba(255,255,255,0)
+        rgba(255,255,255,.1)
+        rgba(255,255,255,0)
+    );
+    transform: translateX(-100%);
+    animation: skeleton-loader 2s infinite;
+}
+@keyframes skeleton-loader {
+    0% { transform: translateX(-100%);}
+    100% { transform: translateX(100%);}
+
+}
+
 .headline {
     margin-bottom: 40px;  
 }
@@ -231,12 +262,25 @@ body {
 
 }
 
+.the-movie .title.skeleton{
+    height: 70px;
+}
+
+
 .the-movie .labels {
     color: var(--color-primary);
     margin-bottom: 20px;
 }
 
-.the-movie .plot {}
+.the-movie .labels.skeleton {
+    height: 30px;
+}
+
+
+.the-movie .plot.skeleton {
+    width: 80%;
+    height: 400px;
+}
 
 .the-movie h3 {
     font-size: 20px;
@@ -244,6 +288,8 @@ body {
     color: var(--color-white);
     margin: 24px 0 6px;
 }
+
+
 
 
 

@@ -58,4 +58,5 @@
 - 줄거리 short와 long으로 길이 제어 가능 long으로 상세정보 표기 parameter=plot=full <br/>
 - 포스터 제목 배우 감독 평점 장르 등 여러 정보를 보여준다  <br/>
 - 평점은 -> 배열데이터로 구성  parameter = source와  value값으로 구별  <br/>
+- 고해상도 처리 url 주소에서 sx다음의 숫자를 700으로 수정 (replace사용)
 
