@@ -1,4 +1,5 @@
 import { Component } from "../core/jsu";
+import aboutStore from "../store/about"
 
 export default class TheFooter extends Component {
     constructor() {
@@ -8,14 +9,15 @@ export default class TheFooter extends Component {
     }
 
     render() {
+        const { blog,repository } =aboutStore.state
         this.el.innerHTML = /* html */`
             <div>
-                <a href="https://github.com/jeonportfolio/movie-app-">
+                <a href="${ repository }">
                         사이트 코드보기 
                 </a>
             </div>
             <div>
-                <a href="https://blog.naver.com/turtleweb">
+                <a href= "${ blog }" >
                     ${new Date().getFullYear()}    
                     블로그 바로가기 
                 </a>

@@ -795,6 +795,8 @@ exports.default = TheHeader;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsu = require("../core/jsu");
+var _about = require("../store/about");
+var _aboutDefault = parcelHelpers.interopDefault(_about);
 class TheFooter extends (0, _jsu.Component) {
     constructor(){
         super({
@@ -802,14 +804,15 @@ class TheFooter extends (0, _jsu.Component) {
         });
     }
     render() {
+        const { blog, repository } = (0, _aboutDefault.default).state;
         this.el.innerHTML = /* html */ `
             <div>
-                <a href="https://github.com/jeonportfolio/movie-app-">
+                <a href="${repository}">
                         \u{C0AC}\u{C774}\u{D2B8} \u{CF54}\u{B4DC}\u{BCF4}\u{AE30} 
                 </a>
             </div>
             <div>
-                <a href="https://blog.naver.com/turtleweb">
+                <a href= "${blog}" >
                     ${new Date().getFullYear()}    
                     \u{BE14}\u{B85C}\u{ADF8} \u{BC14}\u{B85C}\u{AC00}\u{AE30} 
                 </a>
@@ -819,6 +822,19 @@ class TheFooter extends (0, _jsu.Component) {
 }
 exports.default = TheFooter;
 
+},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../store/about":"4RAJO"}],"4RAJO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsu = require("../core/jsu");
+exports.default = new (0, _jsu.Store)({
+    photo: "",
+    name: "JEON SEON UK",
+    email: "etoile929@naver.com => \uC774\uBA54\uC77C \uBCF4\uB0B4\uAE30",
+    blog: "https://blog.naver.com/turtleweb => \uBE14\uB85C\uADF8 \uBC14\uB85C\uAC00\uAE30",
+    github: "https://github.com/jeonportfolio => \uAE43\uD5C8\uBE0C \uBC14\uB85C\uAC00\uAE30",
+    repository: "https://github.com/jeonportfolio/movie-app-"
+});
+
 },{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3L9mC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -827,6 +843,8 @@ var _home = require("./Home");
 var _homeDefault = parcelHelpers.interopDefault(_home);
 var _movie = require("./Movie");
 var _movieDefault = parcelHelpers.interopDefault(_movie);
+var _about = require("./About");
+var _aboutDefault = parcelHelpers.interopDefault(_about);
 exports.default = (0, _jsu.createRouter)([
     {
         path: "#/",
@@ -835,10 +853,14 @@ exports.default = (0, _jsu.createRouter)([
     {
         path: "#/movie",
         component: (0, _movieDefault.default)
+    },
+    {
+        path: "#/about",
+        component: (0, _aboutDefault.default)
     }
 ]);
 
-},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Home":"0JSNG","./Movie":"1LTyN"}],"0JSNG":[function(require,module,exports) {
+},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Home":"0JSNG","./Movie":"1LTyN","./About":"gdB30"}],"0JSNG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsu = require("../core/jsu");
@@ -1127,6 +1149,35 @@ class Movie extends (0, _jsu.Component) {
 }
 exports.default = Movie;
 
-},{"../core/jsu":"9dj6o","../store/movie":"kq1bo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["anvqh","gLLPy"], "gLLPy", "parcelRequire0369")
+},{"../core/jsu":"9dj6o","../store/movie":"kq1bo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gdB30":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsu = require("../core/jsu");
+var _about = require("../store/about");
+var _aboutDefault = parcelHelpers.interopDefault(_about);
+class About extends (0, _jsu.Component) {
+    render() {
+        const { photo, name, email, github, blog } = (0, _aboutDefault.default).state;
+        this.el.classList.add("container", "about");
+        this.el.innerHTML = /* html */ `
+            <div 
+                style="background-image: url(${photo})" 
+                class="photo">
+            </div> 
+            <p class="name"> ${name}</p>
+            <p><a 
+                href="http://mail.google.com/mail/?view=cm&fs=1&to=${email}" 
+                target = "_blank">
+                ${email}
+            </a></p>
+            <p><a href="${github}" target = "_blank">Github</a></p>   
+            <p><a href="${blog}" target = "_blank">Blog</a></p>   
+
+        `;
+    }
+}
+exports.default = About;
+
+},{"../core/jsu":"9dj6o","../store/about":"4RAJO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["anvqh","gLLPy"], "gLLPy", "parcelRequire0369")
 
 //# sourceMappingURL=index.4d6bcbeb.js.map
