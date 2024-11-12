@@ -599,16 +599,19 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsu = require("./core/jsu");
 var _theHeader = require("./component/TheHeader");
 var _theHeaderDefault = parcelHelpers.interopDefault(_theHeader);
+var _theFooter = require("./component/TheFooter");
+var _theFooterDefault = parcelHelpers.interopDefault(_theFooter);
 class App extends (0, _jsu.Component) {
     render() {
         const theHeader = new (0, _theHeaderDefault.default)().el;
+        const theFooter = new (0, _theFooterDefault.default)().el;
         const routerView = document.createElement("router-view");
-        this.el.append(theHeader, routerView);
+        this.el.append(theHeader, routerView, theFooter);
     }
 }
 exports.default = App;
 
-},{"./core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./component/TheHeader":"1INFo"}],"9dj6o":[function(require,module,exports) {
+},{"./core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./component/TheHeader":"1INFo","./component/TheFooter":"6ouWj"}],"9dj6o":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Component", ()=>Component);
@@ -738,18 +741,21 @@ class TheHeader extends (0, _jsu.Component) {
                 menus: [
                     {
                         name: "Search",
-                        herf: "#/"
+                        href: "#/"
                     },
                     {
                         name: "Movie",
-                        herf: "#movie?id=tt4520988"
+                        href: "#/movie?id=tt4520988"
                     },
                     {
                         name: "About",
-                        herf: "#/about"
+                        href: "#/about"
                     }
                 ]
             }
+        });
+        window.addEventListener("popstate", ()=>{
+            this.render();
         });
     }
     render() {
@@ -762,9 +768,14 @@ class TheHeader extends (0, _jsu.Component) {
             <nav>
                 <ul>
                     ${this.state.menus.map((menu)=>{
+            const href = menu.href.split("?")[0];
+            const hash = location.hash.split("?")[0];
+            const isActive = href === hash;
             return /* html */ `
                             <li>
-                                <a herf="${menu.href}">
+                                <a 
+                                    class = "${isActive ? "active" : ""}"
+                                    href="${menu.href}">
                                     ${menu.name}
                                 </a>
                             </li>
@@ -779,6 +790,34 @@ class TheHeader extends (0, _jsu.Component) {
     }
 }
 exports.default = TheHeader;
+
+},{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6ouWj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsu = require("../core/jsu");
+class TheFooter extends (0, _jsu.Component) {
+    constructor(){
+        super({
+            tagName: "footer"
+        });
+    }
+    render() {
+        this.el.innerHTML = /* html */ `
+            <div>
+                <a href="https://github.com/jeonportfolio/movie-app-">
+                        \u{C0AC}\u{C774}\u{D2B8} \u{CF54}\u{B4DC}\u{BCF4}\u{AE30} 
+                </a>
+            </div>
+            <div>
+                <a href="https://blog.naver.com/turtleweb">
+                    ${new Date().getFullYear()}    
+                    \u{BE14}\u{B85C}\u{ADF8} \u{BC14}\u{B85C}\u{AC00}\u{AE30} 
+                </a>
+            </div>
+        `;
+    }
+}
+exports.default = TheFooter;
 
 },{"../core/jsu":"9dj6o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3L9mC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
