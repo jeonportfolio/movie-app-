@@ -2,6 +2,8 @@
 ---
 - 자바스크립트 or 타입스크립트 버젼으로 <br/>
 - store & router 개념을 활용 <br/>
+- vercel 배포 
+- vercel 배포 
 
 ## 프로젝트 설정 <br/>
 ---
